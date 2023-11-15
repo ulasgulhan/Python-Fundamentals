@@ -1,0 +1,7 @@
+{
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.extraPaths": [
+        "../Lecture4"
+    ],
+    "python.analysis.typeCheckingMode": "off"
+}
