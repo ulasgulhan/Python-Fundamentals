@@ -116,15 +116,15 @@
 
 # class Department:
 #     employee_list = []
-#     department_name = ''
+#     department_name = 'Software Developer'
 #     employee_count = 0
 #
-    # def __init__(self, name, age):
-    #     self.name = name
-    #     self.age = age
-    #     Department.employee_list.append(f'Adı: {self.name}, Yaşı: {self.age}')
-    #     Department.employee_count += 1
-
+#     def __init__(self, name, age):
+#         self.name = name
+#         self.age = age
+#         Department.employee_list.append(f'Adı: {self.name}, Yaşı: {self.age}, Departmanı: {self.department_name}')
+#         Department.employee_count += 1
+#
 #     def show_information(self):
 #         return f'Adı: {self.name} Yaşı: {self.age}'
 #
@@ -146,21 +146,58 @@
 # add_new_language() birden fazla dil de ekleyebilsin
 
 
-class Software_Developer:
-    knowleadge_language = []
-    def __init__(self, first_name, last_name):
-        self.first_name = first_name
-        self.last_name = last_name
+# class Software_Developer:
+#     knowleadge_language = []
+#     def __init__(self, first_name, last_name):
+#         self.first_name = first_name
+#         self.last_name = last_name
+#
+#     def show_info(self):
+#         return f'Çalışan: {self.first_name} {self.last_name}\nBildiği Diller: {self.knowleadge_language}'
+#
+#     def add_new_language(self, language):
+#         knowleadge = language.split(',')
+#         for language in knowleadge:
+#             self.knowleadge_language.append(language.lstrip())
+#
+#
+# software_developer = Software_Developer(input('First Name: '), input('Last Name: '))
+# software_developer.add_new_language(input('Language: '))
+# print(software_developer.show_info())
 
-    def show_info(self):
-        return f'Çalışan: {self.first_name} {self.last_name}\nBildiği Diller: {Software_Developer.knowleadge_language}'
+from random import choice
 
-    def add_new_language(self, language):
-        knowleadge = language.split(' ')
-        for language in knowleadge:
-            Software_Developer.knowleadge_language.append(language)
+class Character:
+    def __init__(self, name: str, race: str, role: str, level: int, weapon: int, armour: int, hp: int ):
+        self.hp = hp
+        self.armour = armour
+        self.weapon = weapon
+        self.level = level
+        self.role = role
+        self.race = race
+        self.name = name
+
+    def attack(self):
+        return self.level * self.weapon
+
+    def defend(self):
+        return self.level * self.armour
+
+    def dodge(self):
+        return (self.level * self.weapon) - (self.level * self.weapon)
 
 
-software_developer = Software_Developer(input('First Name: '), input('Last Name: '))
-software_developer.add_new_language(input('Language: '))
-print(software_developer.show_info())
+def main():
+    c1 = Character(name='Kara Murat', race='Turk', role='Raider', level=100, weapon=100, armour=20, hp=100)
+    c2 = Character(name='Gostok', race='Bizans', role='Kral', level=50, weapon=20, armour=100, hp=100)
+
+    while True:
+        bot_actions = [c2.attack, c2.defend, c2.dodge]
+
+        choice(bot_actions)
+
+        # c1 için aksiyon alınır
+
+        # if else ile kontrol edilir
+
+        # oyuncuların hp'leri kontrol edilecek. Herhangi birinin canı 0 olduğunda oyun duracak
