@@ -1,6 +1,6 @@
 
 # Soyutlama
-# OOP yapıları arasında en önemlisidir.
+# 02_OOP yapıları arasında en önemlisidir.
 # Üst seviyeli yazılım prensiplerine uymak istiyorsak ilk adım soyutlamadır.
 # Tasarım destenleri içerisinde soyutlama neredeyse tüm desenlerde(patterns) kullanılmaktadır.
 

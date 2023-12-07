@@ -1,0 +1,3 @@
+Bill Name: ISKI ||Total Amount: 24060.645000000004 ||Create Date: 2023-12-02 11:01:17.940084
+Bill Name: Elektrik ||Total Amount: 9994.95 ||Create Date: 2023-12-02 11:01:17.941052
+Bill Name: Gas ||Total Amount: 2800.0 ||Create Date: 2023-12-02 11:01:17.941052
