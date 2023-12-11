@@ -30,4 +30,10 @@ print(df['Team'].nunique())
 
 # İsim içerisinde "and" ifadesi geçen oyuncuları listeleyen bir fonksiyon yazın. Bu fonksiyon name sütununa uygulayın.
 
+def custom_search(series, substring):
+    return series.apply(lambda x: substring in x)
+
+
+print(df[custom_search(df['Name'], 'and')])
+
 
