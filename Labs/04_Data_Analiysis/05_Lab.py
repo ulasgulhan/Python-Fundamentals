@@ -12,7 +12,7 @@ print(df[df['Salary'] == df['Salary'].max()][['Name']])
 
 # Yaşı 20 ile 35 arsında olan oyuncuların adı, takımı, yaş bilgileri ekrana getirin. Yaş bilgisine göre çoktan aza sıralayarak ekrana basın
 
-print(df[df['Age'].between(20, 35)][['Name', 'Team', 'Age']].sort_values(by='Age'))
+print(df[df['Age'].between(20, 35)][['Name', 'Team', 'Age']].sort_values(by='Age', ascending=False))
 
 # James Young isimli zatı muhterem hangi takım oyuncusu
 
@@ -30,10 +30,12 @@ print(df['Team'].nunique())
 
 # İsim içerisinde "and" ifadesi geçen oyuncuları listeleyen bir fonksiyon yazın. Bu fonksiyon name sütununa uygulayın.
 
-def custom_search(series, substring):
-    return series.apply(lambda x: substring in x)
+def str_find(name: str) -> bool:
+    if 'and' in name.lower():
+        return True
+    else:
+        return False
 
 
-print(df[custom_search(df['Name'], 'and')])
-
+print(df[df['Name'].apply(str_find)])
 
