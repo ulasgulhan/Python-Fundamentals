@@ -2,7 +2,7 @@
 import pandas as pd
 import numpy as np
 from math import sqrt
-
+from pprint import pprint
 
 movie_df = pd.read_csv('Data/movies.csv')
 rating_df = pd.read_csv('Data/ratings.csv')
@@ -107,4 +107,35 @@ for userId, group in sorted_user_usesubset_group:
     else:
         pearson_corellation_dict[userId] = 0
 
-print(pearson_corellation_dict.items())
+
+pearson_df = pd.DataFrame.from_dict(pearson_corellation_dict, orient='index')
+pearson_df.columns = ['similary index']
+pearson_df['userId'] = pearson_df.index
+pearson_df.index = range(len(pearson_df))
+pearson_df['userId'] = pearson_df.userId.apply(lambda x: x[0] if isinstance(x, tuple) and len(x) == 1 else None)
+sorted_pearson_df = pearson_df.sort_values(by='similary index', ascending=False)
+
+
+top_user_rating = sorted_pearson_df.merge(
+    rating_df,
+    on='userId',
+    how='inner'
+)
+
+top_user_rating['weighted_rating'] = top_user_rating['similary index'] * top_user_rating['rating']
+temp_user_rating = top_user_rating.groupby('movieId').sum()[['similary index', 'weighted_rating']]
+
+temp_user_rating['recomandation score'] = temp_user_rating['weighted_rating'] / temp_user_rating['similary index']
+
+temp_user_rating = temp_user_rating.sort_values(by='recomandation score', ascending=False)
+
+recomandation_df = pd.merge(
+    left=temp_user_rating,
+    right=movie_df,
+    right_on='movieId',
+    left_on='movieId',
+    how='inner'
+)
+
+print(recomandation_df.head(20).to_string())
+
