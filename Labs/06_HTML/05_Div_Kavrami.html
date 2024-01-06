@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>
+  Div (Division) kelimesinin kısaltmasıdır. Div ile web sayfalarımız üzerinden birbirinden bağımsız tasarımsal alanlar yaratabiliriz. Temel olarak bir web sayfasında header, side, menu, content ve footer dediğimiz alanlar bulunmaktadır. Bu saydığımız alanları divler içerisinde oluşturuyoruz ve bu alanlar birbirlerine optimum düzeyde etkilemektedir.
+</p>
+<ol>
+  <li><strong>id: </strong><i>Bütün HTML elementlerine verebileceğimiz bir attributetür. Id attribute verdiğimiz HTML elementi biricik olur. Böylelikle verilen id üzerinden ilgili elemente css kodu yazabiliriz. Ya da js için o elementi yakalayarak dinamikleştirebiliriz.</i></li>
+  <li><strong>width: </strong><i>Divin genişliğini verir</i></li>
+  <li><strong>height: </strong><i>Divin yüksekliğini verir</i></li>
+  <li><strong>margin: </strong><i>Divin dış çerçeveye ya da birbirlerine olan mesafeswini ayarlar. Top, footer, right ve left olmak üzere açıdan mesafesini ayarlıdır.</i></li>
+  <li><strong>float: </strong><i>Divlerin kaymaması ve bir bütün olarak gareket etmesi için kullanılır.</i></li>
+</ol>
+<div id="main-container" style="width:1080px;height:900px;margin-left:auto;margin-right:auto">
+  <div id="header" style="width:1080px;height:150px;background-color:pink">Header</div>
+  <div id="left_menu" style="width:100px;height:650px;background-color:green;float:left">Left Side Menu</div>
+  <div id="content" style="width:880px;height:650px;background-color:blue;float:left">Content</div>
+  <div id="right_menu" style="width:100px;height:650px;background-color:lime;float:left">Right Side Menu</div>
+  <div id="footer" style="width:1080px;height:100px;background-color:maroon;float:left">Footer</div>
+</div>
+</body>
+</html>
