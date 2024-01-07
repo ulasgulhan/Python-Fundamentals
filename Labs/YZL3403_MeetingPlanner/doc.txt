@@ -1,0 +1,59 @@
+
+1. Django framework indiriyoruz
+    python -m pip install django
+
+2. Projemin omurgasını oluşturacak dosyaları yaratıyoruz.
+    django-admin startproject meeting_planner
+
+3. Projemizi ayağı kaldırırken manage.py dosyasını kullanıyoruz. Bu bağlamda aşağıdaki terminal kodu ile manage.py dosyasının bulunduğu dizine yürüyorum
+    cd meeting_planner
+
+4. Artık projemizi ayağı kaldırabiliriz.
+    python manage.py runserver
+
+5. İlk custom appi ekleyelim. Bu app içerisinde static web sayfalarımı yöneteceğim.
+    python manage.py startapp website
+
+6. Bir app yaratıldığında ivedi bir biçimde meeting_planner altındaki settings.py dosyasına gelip ilgili appi ekliyoruz.
+    INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'website', # sadece bu satır eklendi
+]
+
+7. website => views.py dosyasına aşağıdaki kodu ekleyin. Servera gelen talebi icra etmek için bir fonksiyon yazdık.
+    # Request => http://127.0.0.1:8000/welcome.html
+    def welcome(request):
+        return HttpResponse('Welcome to the Meeting Planner App')
+
+8. meeting_planner altındaki urls.py dosyasına aşağıdaki kodu ekleyin.
+    from django.urls import path
+    from website.views import welcome # bu satır eklendi
+
+    urlpatterns = [
+        path('admin/', admin.site.urls),
+        path('welcome.html', welcome), # bu satır eklendi
+    ]
+
+9. Request => http://127.0.0.1:8000/date bu talep için 7. ve 8. adımları tekrar edin.
+
+10. meetings adında yeni bir app ekliyoruz.
+    python manage.py startapp meetings
+
+11. meetings => models.py dosyası altına ORM gereği modeli yaratıyoruz. Yani veritabanının bir yansımasını (kopyasını) yani bir benzerini models.py dosyası altında yaratıyoruz.
+
+12. terminal ekranına gelerek göç (migration) işlemini başlatıyoruz. Burada Code First yaklaşımını kullanarak 11.adımda yaratılan modeli veritabanına göç ettirerek veritabanının
+yaratılmasını sağlıyoruz.
+    12.1. python manage.py makemigrations
+    12.2. python manage.py migrate
+
+13. Admin yaratmak için aşağıdaki kodu terminalde icra edelim.
+    13.1. python manage.py createsuperuser
+
+14. meetings => admin.py altında modelsteki sınıflar tegister edilir.
+
+15. admin panelinden room ve meeting create edilir
