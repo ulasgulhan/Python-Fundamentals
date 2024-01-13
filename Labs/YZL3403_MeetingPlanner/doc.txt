@@ -57,3 +57,66 @@ yaratılmasını sağlıyoruz.
 14. meetings => admin.py altında modelsteki sınıflar tegister edilir.
 
 15. admin panelinden room ve meeting create edilir
+
+16. meeting_planner => static adında bir directory açılır.
+    16.1 meeting_planner => static => css klasörü açılır.
+    16.2 meeting_planner => static => js klasörü açılır.
+    16.2 meeting_planner => settings.py => aşağıdaki kodu static files bölgesine yazıyoruz
+    STATIC_URL = 'static/'
+    STATICFILES_DIRS = [
+        BASE_DIR / 'static'
+    ]
+
+17. website => templates klasörü açılır.
+    17.1 base.html sayfası eklenir. AdminLTE boostrap projesinden uygun layout buraya alınır.
+    17.2 base.html'de render edilecek alan saptanır ve render edilir.
+    <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        {% block content %}
+
+        {% endblock %}
+      </div>
+    <!-- /.content-wrapper -->
+    17.3 website => templates => website
+
+18. Projeyi çalıştıdık css olmayan kötü bir görüntü ile karlışatık. Şimdi AdminLTE'nin kaynak css'lerini alıp kendi projemize static alanında hazırladığımız klasöre ekliyoruz. Neye ihtiyacımız varsa onu alacağız fazlasını değil.
+
+19. website => views.py => welcome() aşağıdaki hale getirin.
+    def welcome(request):
+    data = Meeting.objects.all() # SQL => select * from Meetings
+    return render(
+        request,
+        'website/welcome.html',
+        {'message': 'This data was sent from the views to the template',
+         'num_meetings': Meeting.objects.count(),
+         'meetings': data
+         }
+    )
+
+20. website => templates => website => welcome.html dosyasını gerekli düzenlemeleri yapın.
+
+21. website => templates => partials klasörü açılır
+
+22. website => templates => partials => _navbar.html dosyası açılır
+
+23. base.html'den navbar kopyanalarak "_navbar" yapıştırılır. "base.html" dönerek partial çağırılır. Bunu footer, main side container vs için de yapabilirsiniz.
+
+24. meetings => views.py aşağıdaki kodu ekleyin.
+    def detail(request, id):
+        meeting = get_object_or_404(Meeting, pk=id)
+        return render(request, 'meetings/detail.html', {'meeting': meeting})
+
+25. meetings => templates klasörü açılır.
+
+26. meetings => templates => meetings klasörü açılır
+
+27. meetings => templates => meetings => detail.html dosyası açılır.
+
+28. meetings => urls.py dosyası açılır
+
+29. meeting_planner => urls.py dosyasına "meetings.urls.py" include edilir.
+
+30. meeting_planner => urls.py dosyasındaki "welcome" sayfası için hazırlanan url düzenleyin
+    path('', welcome, name='welcome'),
+
+

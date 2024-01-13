@@ -1,0 +1,28 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+  {{ meeting.title }}
+{% endblock %}
+
+{% block content %}
+<div class="row mt-2">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-header">
+          <h4 class="card-title">{{ meeting.title }}</h4>
+      </div>
+      <div class="card-body">
+        <p class="card-text">Date: <strong> {{ meeting.date }} </strong></p>
+        <p class="card-text">Start Time: <strong> {{ meeting.start_time }} </strong></p>
+        <p class="card-text">Duration: <strong> {{ meeting.duration }} </strong></p>
+        <p class="card-text">Floor: <strong> {{ meeting.room.floor }} </strong></p>
+        <p class="card-text">Room: <strong> {{ meeting.room }} </strong></p>
+      </div>
+      <div class="card-footer">
+        <a href="{% url 'welcome' %}" class="btn btn-sm btn-primary float-end">Back to Home</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -12,8 +12,15 @@ from meetings.models import Meeting, Room
 
 
 def welcome(request):
-    data = Meeting.objects.all()
-    return HttpResponse('Welcome to the Meeting Planner App')
+    data = Meeting.objects.all() # SQL => select * from Meetings
+    return render(
+        request,
+        'website/welcome.html',
+        {'message': 'This data was sent from the views to the template',
+         'num_meetings': Meeting.objects.count(),
+         'meetings': data
+         }
+    )
 
 
 # Request => http://127.0.0.1:8000/date

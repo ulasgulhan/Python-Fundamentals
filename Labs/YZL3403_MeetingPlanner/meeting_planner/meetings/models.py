@@ -31,6 +31,7 @@ class Meeting(models.Model):
                 f'{self.start_time} on '
                 f'{self.date}')
 
+
     class Meta:
         verbose_name_plural = 'meetings'
 
