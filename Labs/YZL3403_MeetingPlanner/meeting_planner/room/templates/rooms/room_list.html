@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Room List
+{% endblock %}
+
+{% block content %}
+
+<div class="row mt-2">
+  <div class="col-sm-8">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Room List</div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-sm table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Detail</th>
+                <th>Update</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for room in rooms %}
+                <tr>
+                  <td>{{ room.name }}</td>
+                  <td>
+                    <a href="{% url 'detail' room.id %}" class="btn btn-md btn-info">Detail</a>
+                  </td>
+                  <td>
+                    <a href="#" class="btn btn-md btn-warning">Update</a>
+                  </td>
+                  <td>
+                    <a href="#" class="btn btn-md btn-danger">Delete</a>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a href="{% url 'welcome' %}" class="btn btn-md btn-primary float-end">Back Home</a>
+        <a href="#" class="btn btn-md btn-success float-end me-2 ms-2">Create New One</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

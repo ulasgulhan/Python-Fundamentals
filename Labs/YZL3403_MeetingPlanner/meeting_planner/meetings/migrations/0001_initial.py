@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
                 ('date', models.DateField()),
                 ('start_time', models.TimeField(default=datetime.time(9, 0))),
                 ('duration', models.IntegerField(default=1)),
-                ('room', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='meetings.room')),
+                ('rooms', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='meetings.rooms')),
             ],
             options={
                 'verbose_name_plural': 'meetings',

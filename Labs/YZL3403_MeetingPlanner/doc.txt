@@ -119,4 +119,33 @@ yaratılmasını sağlıyoruz.
 30. meeting_planner => urls.py dosyasındaki "welcome" sayfası için hazırlanan url düzenleyin
     path('', welcome, name='welcome'),
 
+31. meetings => forms.py dosyası açılır.
+
+32. meetings => views.py => create fonksiyonu yazılır.
+
+33. meetings => urls.py => create url eklenir.
+
+34. meetings => templates => meetings => create.html açılır.
+
+35. Formlarda boostrap form yapısını kullanmak için
+    35.1. pip install django-bootstrap-v5
+    35.2. website => templates => website => base.html head bloğuna "{% load bootstrap5 %}" ekle
+    35.3. bootstrap form kullanmak istediğin sayfalarda "{% load bootstrap5 %}" ekle
+
+36. meetings => views.py => update fonksiyonu yazılır
+
+37. meetings => urls.py => update url ekle
+
+38. meetings => templates => meetigns => update.html açılır.
+
+39. meetings => views.py => delete fonksiyonu yazılır
+
+40. meetings => urls.py => delete url ekle
+
+41. meetings => templates => meetigns => delete.html açılır.
+
+42. room app create edilir.
+    42.1 python manage.py startapp room
+
+43. meeting_planner => settings.py => INSTALLED_APPS listesine "room" register edilir.
 

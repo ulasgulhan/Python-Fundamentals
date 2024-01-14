@@ -23,4 +23,5 @@ urlpatterns = [
     path('', welcome, name='welcome'),
     path('date', date),
     path('meeting/', include('meetings.urls')),
+    path('room/', include('room.urls')),
 ]

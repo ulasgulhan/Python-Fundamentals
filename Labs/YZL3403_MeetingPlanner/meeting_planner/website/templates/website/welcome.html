@@ -43,10 +43,10 @@
                     <a href="{% url 'detail' meeting.id %}" class="btn btn-md btn-info">Detail</a>
                   </td>
                   <td>
-                    <a href="#" class="btn btn-md btn-warning">Update</a>
+                    <a href="{% url 'update' meeting.id %}" class="btn btn-md btn-warning">Update</a>
                   </td>
                   <td>
-                    <a href="#" class="btn btn-md btn-danger">Delete</a>
+                    <a href="{% url 'delete' meeting.id %}" class="btn btn-md btn-danger">Delete</a>
                   </td>
                 </tr>
               {% endfor %}
@@ -55,10 +55,9 @@
         </div>
       </div>
       <div class="card-footer">
-        <a href="#" class="btn btn-md btn-success float-end">Create New One</a>
+        <a href="{% url 'create' %}" class="btn btn-md btn-success float-end">Create New One</a>
       </div>
     </div>
   </div>
 </div>
-<p>Buraya ne yazarsam o ekranda çıkacak..!</p>
 {% endblock %}
