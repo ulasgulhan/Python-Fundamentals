@@ -1,0 +1,67 @@
+
+1. pip install django
+
+2. django-admin startproject ecommerce
+
+3. cd ecommerce => python manage.py runserver
+
+4. django-admin startapp store
+
+5. ecommerce => settings => INSTALLED_APPS listesine 'store' appini register et.
+
+6. store => models dizayn edilir.
+
+7. modeli veritabanına göç ettirelim
+    7.1. python manage.py makemigrations
+    7.2. python manage.py migrate
+
+8. static dosyalar için ayarlamaları yapın.
+    8.1. ecommerce => static adında bir directory açalım
+    8.2. ecommerce => static => css, js, media adında klasörleri yaratalım.
+    8.3. ecommerce => ecommerce => setting.py dosyasına aşağıdaki kodları ekleyin
+        STATIC_URL = '/static/'
+        STATICFILES_DIRS = [BASE_DIR / 'static']
+        MEDIA_URL = '/media/'
+        MEDIA_ROOT = BASE_DIR / 'static/media'
+    8.4. ecommerce => ecommerce => urls.py dosyasına aşağıdaki kodları ekleyin
+        from django.conf.urls.static import static
+        from django.conf import settings
+
+        urlpatterns = [
+            path('admin/', admin.site.urls),
+        ]
+        urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+9. ecommerce => store => admin.py aşağıdaki kodları ekleyin.
+    from django.contrib import admin
+    from .models import Category, Product
+
+    # Register your models here.
+
+
+    class CategoryAdmin(admin.ModelAdmin):
+        prepopulated_fields = {
+            'slug': ('name',)
+        }
+
+        fields = ['name', 'slug']
+
+
+    class ProductAdmin(admin.ModelAdmin):
+        prepopulated_fields = {
+            'slug': ('title',)
+        }
+
+        fields = ['title', 'slug', 'description', 'price', 'image', 'category']
+
+
+    admin.site.register(Category, CategoryAdmin) # Decorator olarak classın tepesine yazabiliriz.
+    admin.site.register(Product, ProductAdmin)
+
+10. admin site tarafına giriş yapmak için user yaratın
+    10.1. python manage.py createsuperuser
+
+11. store => templates klasörü açalım
+
+12. store => templates => base.html açalım
+
