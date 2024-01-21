@@ -65,3 +65,25 @@
 
 12. store => templates => base.html açalım
 
+13. store => templates => _navbar.html açalım ve bunu base.html'de include edelim.
+
+14. store => views.py => store() fonksiyonunu yazalım.
+
+15. store => urls.py dosyası açılır
+
+16. ecommerce => urls.py dosyasına store/urls.py include edilir.
+
+17. store => templates => store.html açılır
+
+18. store => views.py => categories() fonksiyonunu yaz.
+
+19. ecommerce => settings => TEMPLATE[] categries() fonksiyonunu register et
+
+20. store => templates => _navbar.html'de dropdown menüyü organize et
+
+21. store => views.py => list_category() fonksiyonunu yaz
+
+22. store => urls.py => list_category() fonksiyonunu ekle
+
+23. store => template => list-category.html dosyasını yaratın
+

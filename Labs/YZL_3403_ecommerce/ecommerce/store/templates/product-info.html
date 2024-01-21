@@ -1,0 +1,39 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Store
+{% endblock %}
+
+{% block content %}
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col-4">
+        <img src="media/{{ model.image }}" class="img-fluid mx-auto d-block" alt="">
+    </div>
+    <div class="col-8">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-text"> <strong>Title: </strong> {{ product_info.title | capfirst }} </p>
+                <p class="card-text"> <strong>Description: </strong> {{ product_info.description }} </p>
+                <p class="card-text"> <strong>Brand: </strong> {{ product_info.brand }} </p>
+                <p class="card-text"> <strong>Price: </strong> {{ product_info.price }} </p>
+                <p class="card-text">
+                    <strong>Quantity: </strong>
+                    <select id="select">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </p>
+            </div>
+            <div class="card-footer">
+                <button type="button" id="add_button" value="{{ product_info.id }}" class="btn btn-sm btn-outline-success float-end">
+                    <i class="fa fa-shopping-basket" aria-hidden="true"></i> &nbsp; Add to cart
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

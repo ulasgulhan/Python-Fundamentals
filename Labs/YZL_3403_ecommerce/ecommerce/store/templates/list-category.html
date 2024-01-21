@@ -7,10 +7,10 @@
 {% endblock %}
 
 {% block content %}
-<h1>All Prodcut</h1>
+<h1>{{ category_name | capfirst }}</h1>
 <hr><br><br>
 <div class="row row-cols-1 row-cols-md-3 g-4">
-    {% for product in all_products %}
+    {% for product in products %}
       <div class="col">
         <div class="card h-100">
           <img src="media/{{ product.image }}" class="card-img-top" alt="...">
