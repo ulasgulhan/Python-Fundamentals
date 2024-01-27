@@ -87,3 +87,71 @@
 
 23. store => template => list-category.html dosyasını yaratın
 
+24. account app yarat
+    24.1. python manage.py startapp account
+    24.2. ecommerce => settings.py => INSTALLED_APPS listesine 'account' register et.
+
+25. account => forms.py dosyası açılır
+
+26. account => views.py => register() fonksiyonu yazılır.
+
+27. account => urls.py dosyası açılır
+    26.1. ecommerce => urls.py dosyasına account url register edilir
+
+28. account => templates klasörü açılır
+
+29. account => templates => register.html açılır.
+
+30. store => templates => _navbar.html içerisine tasarıma uygun bir şekilde aşağıdaki kodları ekleyin
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="btn btn-sm btn-success fload-end" type="button" href="#">
+              <i class="fa fa-home" aria-hidden="true">&nbsp; Dashboard</i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-sm btn-danger ms-2 me-2 fload-end" type="button" href="#">
+              <i class="fa fa-sign-out" aria-hidden="true">&nbsp; Logout</i>
+            </a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="btn btn-sm btn-success fload-end" type="button" href="#">
+              <i class="fa fa-sign-in" aria-hidden="true">&nbsp; Sign In</i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-sm btn-danger ms-2 me-2 fload-end" type="button" href="{% url 'register' %}">
+              <i class="fa fa-user-plus" aria-hidden="true">&nbsp; Sign Up</i>
+            </a>
+          </li>
+        {% endif %}
+
+31. account => views.py my_login() fonksiyonunu yazın
+
+32. account => urls.py my_login url ekleyin
+
+33. account => tempaltes => my-login.html ekleyin
+
+34. account => views.py => user_logout() fonksiyonunu yazın
+
+35. account => urls.py user_logiout url ekleyin
+
+36. store => templates => _navbar.html => user_logout href yazılır
+
+37. accpımt => views.py => profile_management() fonksiyonunu yazın
+
+38. account => urls.py profile_management url ekleyin
+
+39. account => templates => profile_management.html eklenir.
+
+40. account => views.py => delete_account() fonksiyonunu yazın
+
+41. account => urls.py => delete_account url ekleyin
+
+42. account => templates => delete-account.html eklenir
+
+Not: store => templates => _navbar.html hrefleri kontrol etmeyi unutmayın
+
+43. cart app eklenir
+

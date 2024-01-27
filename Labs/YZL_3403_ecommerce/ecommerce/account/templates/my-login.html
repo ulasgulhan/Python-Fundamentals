@@ -1,0 +1,28 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block content %}
+<div class="row mt-2">
+  <div class="col-sm-3"></div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-header"><h5 class="card-title">Sign In</h5></div>
+      <form method="POST" autocapitalize="off">
+        {% csrf_token %}
+          <div class="card-body">
+            {{ form }}
+          </div>
+          <div class="card-footer">
+            <button type="submit" class="btn btn-sm btn-success float-end ms-2 me-2">Sign In</button>
+            <a href="{% url 'register' %}" class="btn btn-sm btn-warning ms-2 me-2 float-end">Register</a>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

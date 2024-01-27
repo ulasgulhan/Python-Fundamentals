@@ -20,6 +20,29 @@
             {% endfor %}
           </ul>
         </li>
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="btn btn-sm btn-success fload-end" type="button" href="{% url 'dashboard' %}">
+              <i class="fa fa-home" aria-hidden="true">&nbsp; Dashboard</i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-sm btn-danger ms-2 me-2 fload-end" type="button" href="{% url 'user_logout' %}">
+              <i class="fa fa-sign-out" aria-hidden="true">&nbsp; Logout</i>
+            </a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="btn btn-sm btn-success fload-end" type="button" href="{% url 'my_login' %}">
+              <i class="fa fa-sign-in" aria-hidden="true">&nbsp; Sign In</i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-sm btn-danger ms-2 me-2 fload-end" type="button" href="{% url 'register' %}">
+              <i class="fa fa-user-plus" aria-hidden="true">&nbsp; Sign Up</i>
+            </a>
+          </li>
+        {% endif %}
       </ul>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

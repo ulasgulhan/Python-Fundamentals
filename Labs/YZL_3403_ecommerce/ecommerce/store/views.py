@@ -32,12 +32,14 @@ def list_category(request, category_slug=None):
     category = Category.objects.filter(Q(status='Active') | Q(status='Modified'), Q(slug=category_slug)).values('id', 'name').first()
 
     # 2.adım: Yukarıda bulduğumuz category id bilgisine ait ürünleri listeliyoruz
-    model = Product.objects.filter(Q(status='Active') | Q(status='Modified'), Q(category_id=category['id'])).values('title', 'price', 'image', 'slug').order_by('title')
+    # model = Product.objects.filter(Q(status='Active') | Q(status='Modified'), Q(category_id=category['id'])).values('title', 'price', 'image', 'slug').order_by('title')
+    model = Product.objects.filter(Q(status='Active') | Q(status='Modified'), Q(category_id=category['id'])).order_by('title')
 
     return render(request, 'list-category.html', {'category_name': category['name'], 'products': model})
 
 
 def product_info(request, product_slug):
-    data = Product.objects.select_related('category').filter(Q(status='Active') | Q(status='Modified'), Q(slug=product_slug)).values('title', 'description', 'price', 'image', 'brand', 'category__name').first()
+    # data = Product.objects.select_related('category').filter(Q(status='Active') | Q(status='Modified'), Q(slug=product_slug)).values('title', 'description', 'price', 'image', 'brand', 'category__name').first()
+    data = Product.objects.select_related('category').filter(Q(status='Active') | Q(status='Modified'), Q(slug=product_slug)).first()
 
     return render(request, 'product-info.html', {'product_info': data})
