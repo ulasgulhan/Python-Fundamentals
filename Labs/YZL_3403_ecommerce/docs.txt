@@ -154,4 +154,26 @@
 Not: store => templates => _navbar.html hrefleri kontrol etmeyi unutmayın
 
 43. cart app eklenir
-
+    43.1. python manage.py startapp cart
+    43.2. ecommerce => settings => INSTALLED_APPS listesine "cart" app register et
+    43.3. cart.py oluşturulur
+    43.4. context_processors.py oluşturulur
+    43.5. ecommerce => settings.py => TEMPLATES listesine 'context_processors' eklenir
+    43.6. store => _navbar.html 'cart' için değişiklik yapılır
+          <li class="nav-item">
+            <a class="btn btn-sm btn-secondary ms-2 me-2 fload-end" type="button" href="{% url 'cart-summary' %}">
+              <i class="fa fa-shopping-cart" aria-hidden="true">&nbsp;</i>
+              <div id="cart-qty" class="d-inline-flex">
+                {% with qty_amount=cart|length %}
+                  {% if qty_amount > 0 %}
+                    {{ qty_amount }}
+                  {% else %}
+                    0
+                  {% endif %}
+                {% endwith %}
+              </div>
+            </a>
+          </li>
+    43.7. views.py dosyasında CRUD fonksiyonlarını yazın
+    43.8. urls.py yaratılır ve ecommerce => urls.py include edilir.
+    44.9. templates klasörü yaratılır. CRUD operasyonları için html sayfaları yaratılır.

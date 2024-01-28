@@ -1,0 +1,103 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Cart
+{% endblock %}
+
+{% block content %}
+
+<div class="row mt-2">
+  <div class="col-sm-3"></div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Cart Summary</div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive small">
+          <table class="table table-striped table-sm">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in cart %}
+                {% with product=item.product %}
+                  <tr id="{{ product.id }}">
+                    <td>
+                      <img src="{{product.image.url}}" class="img-fluid mx-auto d-block">
+                    </td>
+                    <td>{{product.title}}</td>
+                    <td>{{product.price}}</td>
+                    <td>
+                      <select id="select_{{product.id}}">
+                        <option selected>{{item.qty}}</option>
+                        <option value="">1</option>
+                        <option value="">2</option>
+                        <option value="">3</option>
+                        <option value="">4</option>
+                      </select>
+                    </td>
+                    <td>
+                      <button type="button" data-index="{{product.id}}" class="btn btn-sm btn-success add-button">
+                        <i class="fa fa-plus" aria-hidden="true"> </i>
+                      </button>
+                    </td>
+                    <td>
+                      <button type="button" data-index="{{product.id}}" class="btn btn-sm btn-danger delete-button">
+                        <i class="fa fa-trash" aria-hidden="true"> </i>
+                      </button></td>
+                    <td>
+                      <button type="button" data-index="{{product.id}}" class="btn btn-sm btn-warning minus-button">
+                        <i class="fa fa-minus" aria-hidden="true"> </i>
+                      </button></td>
+                    </td>
+                  </tr>
+                {% endwith %}
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="badge text-bg-secondary"><strong>Total Price: $</strong> {{ cart.get_total }} </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  //Delete Button
+  $(document).on('click', '.delete-button', function(e){
+    e.preventDefault();
+
+    $.ajax({
+      type: 'POST',
+      url: '{% url "cart-delete" %}',
+      data: {
+        product_id: $(this).data('index'),
+        csrfmiddlewaretoken: "{{csrf_token}}",
+        action: 'POST'
+      },
+
+      success: function(json){
+        console.log(json)
+        document.getElementById("product_{{product.id}}").remove()
+        document.getElementById("cart-qty").textContent = json.qty
+        document.getElementById("total").textContent = json.total
+      },
+      error: function(json){}
+    })
+  })
+</script>
+
+{% endblock %}

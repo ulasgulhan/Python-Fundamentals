@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="{% url 'store' %}">Navbar</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -43,11 +43,24 @@
             </a>
           </li>
         {% endif %}
+
+        &nbsp; &nbsp; &nbsp;
+
+          <li class="nav-item">
+            <a class="btn btn-sm btn-secondary ms-2 me-2 fload-end" type="button" href="{% url 'cart-summary' %}">
+              <i class="fa fa-shopping-cart" aria-hidden="true">&nbsp;</i>
+              <div id="cart-qty" class="d-inline-flex">
+                {% with qty_amount=cart|length %}
+                  {% if qty_amount > 0 %}
+                    {{ qty_amount }}
+                  {% else %}
+                    0
+                  {% endif %}
+                {% endwith %}
+              </div>
+            </a>
+          </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
     </div>
   </div>
 </nav>

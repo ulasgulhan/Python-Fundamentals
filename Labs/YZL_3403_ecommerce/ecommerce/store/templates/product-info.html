@@ -1,5 +1,6 @@
 
 {% extends 'base.html' %}
+
 {% load static %}
 
 {% block title %}
@@ -36,4 +37,32 @@
         </div>
     </div>
 </div>
+
+<script>
+    //Add Button
+    $(document).on('click', '#add_button', function(e){
+        e.preventDefault();
+
+        $.ajax({
+            type: 'POST',
+            url: '{% url "cart-add" %}',
+            data: {
+                product_id: $('#add_button').val(),
+                product_quantity: $('#select option:selected').text(),
+                csrfmiddlewaretoken: "{{csrf_token}}",
+                action: 'POST'
+            },
+
+            success: function(json){
+                console.log(json)
+                document.getElementById("cart-qty").textContent = json.qty
+            },
+            error: function(err){
+
+            }
+        });
+    });
+</script>
+
+
 {% endblock %}
