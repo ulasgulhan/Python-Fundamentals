@@ -1,0 +1,25 @@
+
+1. Projemizde kullanacağımız ana framework'ü indiriyoruz.
+    1.1. pip install fastapi[all]
+
+2. app adında bir directory ekliyoruz.
+
+3. app => settings.py dosyası açıyoruz.
+
+4. projede kullanacağımız ORM framework'ü indiriyoruz
+    4.1. pip install sqlalchemy
+
+5. app => models.py dosyası açılır
+
+6. app => main.py dosyası açılır
+
+7. app => routers adında python package açıyoruz
+
+8. app => routers => category.py dosyasını açıyoruz.
+    from fastapi import APIRouter
+
+
+    router = APIRouter()
+
+9. app => main.py altına category.router nesnesini register edin.
+

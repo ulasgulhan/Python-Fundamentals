@@ -26,7 +26,6 @@
                 <th>Quantity</th>
                 <th></th>
                 <th></th>
-                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -48,7 +47,7 @@
                       </select>
                     </td>
                     <td>
-                      <button type="button" data-index="{{product.id}}" class="btn btn-sm btn-success add-button">
+                      <button type="button" data-index="{{product.id}}" class="btn btn-sm btn-success update-button">
                         <i class="fa fa-plus" aria-hidden="true"> </i>
                       </button>
                     </td>
@@ -56,11 +55,6 @@
                       <button type="button" data-index="{{product.id}}" class="btn btn-sm btn-danger delete-button">
                         <i class="fa fa-trash" aria-hidden="true"> </i>
                       </button></td>
-                    <td>
-                      <button type="button" data-index="{{product.id}}" class="btn btn-sm btn-warning minus-button">
-                        <i class="fa fa-minus" aria-hidden="true"> </i>
-                      </button></td>
-                    </td>
                   </tr>
                 {% endwith %}
               {% endfor %}
@@ -69,7 +63,7 @@
         </div>
       </div>
       <div class="card-footer">
-        <span class="badge text-bg-secondary"><strong>Total Price: $</strong> {{ cart.get_total }} </span>
+        <span class="badge text-bg-secondary float-end"><strong>Total Price: $</strong> {{ cart.get_total }} </span>
       </div>
     </div>
   </div>
@@ -91,13 +85,41 @@
 
       success: function(json){
         console.log(json)
-        document.getElementById("product_{{product.id}}").remove()
+        location.reload()
         document.getElementById("cart-qty").textContent = json.qty
         document.getElementById("total").textContent = json.total
       },
       error: function(json){}
-    })
-  })
+    });
+  });
+
+
+  //Update
+  $(document).on('click', '.update-button', function(e){
+    e.preventDefault();
+
+    var theproductid = $(this).data('index');
+    console.log(theproductid)
+    $.ajax({
+      type: 'POST',
+      url: '{% url "cart-update" %}',
+      data: {
+        product_id: $(this).data('index'),
+        product_quantity: $('#select_' + theproductid + ' option:selected').text(),
+        csrfmiddlewaretoken: "{{csrf_token}}",
+        action: 'POST'
+      },
+
+      success: function(json){
+        console.log(json)
+        location.reload()
+        document.getElementById("cart-qty").textContent = json.qty
+        document.getElementById("total").textContent = json.total
+      },
+      error: function(json){}
+    });
+  });
+
 </script>
 
 {% endblock %}
