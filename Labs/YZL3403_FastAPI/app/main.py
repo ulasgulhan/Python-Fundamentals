@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from settings import engine
 import models
-from routers import category
+from routers import category, auth, user
 
 
 app = FastAPI()
@@ -12,4 +12,6 @@ models.Base.metadata.create_all(bind=engine)
 
 # routers klasörü altında açtığımız ".py" uzantılı dosyalarımızı buraya register ediyoruz ki proje ayağa kalktığında ilgili dosyalarda bulunan fonksiyonlar devreye girsin.
 app.include_router(category.router)
+app.include_router(auth.router)
+app.include_router(user.router)
 
