@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    All Categories
+{% endblock %}
+
+{% block content %}
+<h1>All Categories</h1>
+<hr><br><br>
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">All Categories</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive small">
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Detail</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for category in categories %}
+                    <tr>
+                        <td>{{ category.name }}</td>
+                        <td>{{ category.description }}</td>
+                        <td>
+                            <a href="{% url 'detail' category.id %}" class="btn btn-sm btn-info">Detail</a>
+                        </td>
+                        <td>
+                            <a href="{% url 'update' category.id %}" class="btn btn-sm btn-warning">Update</a>
+                        </td>
+                        <td>
+                            <a href="{% url 'delete' category.id %}" class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer">
+        <a href="{% url 'create' %}" class="btn btn-sm btn-success float-end">Create New One</a>
+    </div>
+</div>
+{% endblock %}
+
