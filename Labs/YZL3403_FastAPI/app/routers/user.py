@@ -45,7 +45,7 @@ async def get_user(db: db_dependency):
     )
 
 
-@router.put(path='/password', status_code=status.HTTP_204_NO_CONTENT)
+@router.put(path='/password', status_code=status.HTTP_200_OK)
 async def change_password(db: db_dependency, user: user_dependency, pwd_verification: PasswordVerification,):
     if user is None:
         raise HTTPException(
