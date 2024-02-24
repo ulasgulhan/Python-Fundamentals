@@ -87,3 +87,141 @@ from [Order Details]
 group by OrderID
 having SUM(Quantity) > 200
 order by Amount desc
+
+
+-- JOIN İşlemleri
+
+-- Product tablosundan ProductId, ProductName, CategoryId
+-- Categories tablosundan da CategoryName ve Description
+-- Alanlarını getirelim
+
+select p.ProductID, p.ProductName, p.CategoryID, c.CategoryName, c.Description from Products as p
+join Categories as c on p.CategoryID = c.CategoryID
+
+-- Supplier tablosundan CompanyName, ContactName
+-- Product tablosundan ProductName, UnitPrice
+-- Category tablosundan CategoryName
+-- CompanyName göre artan sırada ekrana getirilsin
+
+select p.ProductName, p.UnitPrice, c.CategoryName, s.CompanyName, s.ContactName from Products as p
+join Categories as c on p.CategoryID = c.CategoryID
+join Suppliers as s on p.SupplierID = s.SupplierID
+order by s.CompanyName ASC
+
+-- Ürünlere göre satışlarım nasıl?
+
+select Top 5 
+p.ProductName, sum(o.Quantity) as Quantity, ROUND(SUM((1-o.Discount) * o.Quantity * o.UnitPrice), 2) as Income from Products as p
+join [Order Details] as o on p.ProductID = o.ProductID
+group by p.ProductName
+order by Income DESC
+
+-- Kategorilerime göre satışlarım nasıl?
+
+select c.CategoryName, sum(od.Quantity) as Quantity, ROUND(SUM((1-od.Discount) * od.Quantity * od.UnitPrice), 2) as Income
+from Categories as c
+join Products as p on c.CategoryID = p.ProductID
+join [Order Details] as od on p.ProductID = od.ProductID
+group by c.CategoryName
+order by Income DESC
+
+-- Hangi kargo firmasına toplamda ne kadar para vermişiz
+
+select s.CompanyName, ROUND(SUM(o.Freight), 2) as Total from Orders as o
+join Suppliers as s on o.ShipVia = s.SupplierID
+group by s.CompanyName
+order by Total DESC
+
+-- En değerli müşterim kim
+
+select Top 1
+c.CompanyName, sum(od.Quantity) as Quantity, ROUND(SUM((1-od.Discount) * od.Quantity * od.UnitPrice), 2) as Income 
+from Customers as c
+join Orders as o on c.CustomerID = o.CustomerID
+join [Order Details] as od on od.OrderID = o.OrderID
+group by c.CompanyName
+order by Income DESC
+
+-- Hangi tedarikçiden aldığım üründen ne kadar satmışım
+
+select s.CompanyName, p.ProductName, sum(od.Quantity) as Quantity, ROUND(SUM((1-od.Discount) * od.Quantity * od.UnitPrice), 2) as Income 
+from Suppliers as s
+join Products as p on s.SupplierID = p.ProductID
+join [Order Details] as od on od.ProductID = p.ProductID
+group by s.CompanyName, p.ProductName
+order by Income DESC
+
+-- Hangi siparişi hangi çalışan tarafından hangi müşteriye yapılmış
+
+select o.OrderID, o.OrderDate, c.CompanyName, (e.FirstName + ' ' + e.LastName) as [Full Name], e.Title from Employees as e
+join Orders as o on e.EmployeeID = o.EmployeeID
+join Customers as c on c.CustomerID = o.CustomerID
+
+-- Hangi sipariş
+-- Hangi müşteri vermiş
+-- Hangi çalışan onaylamış
+-- Hangi tarihte
+-- Hangi kargo ile taşınmış
+-- Hangi fiyattan alınmış
+-- Hangi kategoridenmiş
+-- Bu ürün hangi tedarikçiden sağşanmış
+
+select 
+o.OrderID, o.OrderDate, cus.CompanyName, c.CategoryID, (e.FirstName + ' ' + e.LastName) as [Full Name], 
+sh.CompanyName, sum(od.Quantity) as Quantity, ROUND(SUM((1-od.Discount) * od.Quantity * od.UnitPrice), 2) as Income
+from Orders as o
+join [Order Details] as od on o.OrderID = od.OrderID
+join Products as p on od.ProductID = p.ProductID
+join Categories as c on c.CategoryID = p.ProductID
+join Suppliers as s on s.SupplierID = p.SupplierID
+join Shippers as sh on o.ShipVia = sh.ShipperID
+join Customers as cus on o.CustomerID = cus.CustomerID
+join Employees as e on e.EmployeeID = o.EmployeeID
+group by o.OrderID, o.OrderDate, cus.CompanyName, c.CategoryID, e.FirstName, e.LastName, sh.CompanyName
+
+-- User Defined Function
+
+Create Function KDVHesapla(@fiyat money)
+returns money
+	begin
+		return @fiyat * 1.08
+	end;
+
+select p.ProductName, c.CategoryName, p.UnitPrice, dbo.KDVHesapla(UnitPrice) as [KDV Included] from Products as p
+join Categories as c on p.CategoryID = c.CategoryID
+
+Alter Function dbo.KDVHesapla(@fiyat money)
+returns money
+	begin
+		return @fiyat * 2.08
+	end;
+
+
+-- Kişilerin yaşlarını hesaplayan UDF yazın
+
+Create Function calculateage(@born datetime)
+returns int
+	begin
+		declare @age int;
+		set @age=DATEDIFF(YY, @born, getdate())
+		return @age
+	end;
+
+-- Fosilleşmiş çalışanı bulalım
+select Top 1 FirstName + ' ' + LastName as [Full Name], dbo.calculateage(BirthDate) as [Age] from Employees
+order by dbo.calculateage(BirthDate) desc
+
+select * from Employees
+
+-- Tablo döndüren UDF
+
+create function getemployeebyid(@pk int)
+returns table
+		return select (TitleOfCourtesy + ' ' + FirstName + ' ' + LastName) as [Full Name], 
+		dbo.calculateage(BirthDate) as [Age],
+		City, 
+		HomePhone 
+		from Employees 
+		where EmployeeID = @pk
+
+select * from getemployeebyid(5)
